@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "558237204370",
+    "project_id": "alertsphere-f367a",
+    "storage_bucket": "alertsphere-f367a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558237204370:android:02f9647bd722b4c8e4cb4b",
+        "android_client_info": {
+          "package_name": "com.example.alertsphere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnVeUqfDOJtY6jBcD1ZwcBGJu-URpv8Xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
