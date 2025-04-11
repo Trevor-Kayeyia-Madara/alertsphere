@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 
 const CrimeReport = () => {
   const [crimeType, setCrimeType] = useState('');
@@ -9,37 +10,60 @@ const CrimeReport = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
-
+  
+  const navigate = useNavigate(); // Initialize navigate hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    // Check if the user is logged in as a citizen
+    if (!token || role !== 'citizen') {
+      alert('You must be logged in as a citizen to report a crime');
+      return;
+    }
+
+    // Reset error and success messages before submitting
     setLoading(true);
     setErrorMessage('');
     setSuccessMessage('');
 
-    const formData = new FormData();
-    formData.append('crime_type', crimeType);
-    formData.append('crime_description', crimeDescription);
-    formData.append('crime_location', crimeLocation);
-    formData.append('date_time_of_incident', dateTime);
-    formData.append('reporter_id', localStorage.getItem('userId') || '');
+    // Prepare the data to be sent in the request body
+    const reportData = {
+      crime_type: crimeType,
+      crime_description: crimeDescription,
+      crime_location: crimeLocation,
+      date_time_of_incident: dateTime,
+      reporter_id: localStorage.getItem('userId') || '', // Ensure this matches the key used in localStorage
+    };
+    console.log('Report Data:', reportData);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/crime/report', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      // Sending the POST request with the crime report data
+      const response = await axios.post('http://localhost:5000/api/crime/report', reportData, {
+        headers: { 'Content-Type': 'application/json' },
       });
 
+      // On success, set the success message and clear the form
       setSuccessMessage(response.data.message || 'Crime report submitted successfully.');
       setErrorMessage('');
       setCrimeType('');
       setCrimeDescription('');
       setCrimeLocation('');
       setDateTime('');
+
+      // Redirect to the citizen dashboard after successful submission
+      navigate('/citizen-dashboard');
+      console.log('Report data:', reportData);
+
     } catch (error) {
+      // Handle errors, if any
       setErrorMessage(error.response?.data?.error || 'An error occurred while submitting the report.');
+      console.error('Backend error response:', error.response);
+      
     } finally {
-      setLoading(false);
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -48,6 +72,7 @@ const CrimeReport = () => {
       <div className="w-full max-w-2xl bg-white shadow-xl rounded-xl p-8">
         <h2 className="text-3xl font-bold text-blue-700 text-center mb-8">🕵️ Report a Crime</h2>
 
+        {/* Display error or success messages */}
         {errorMessage && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             <strong>Error:</strong> {errorMessage}
@@ -59,6 +84,7 @@ const CrimeReport = () => {
           </div>
         )}
 
+        {/* Crime report form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-gray-700 font-medium mb-1">Crime Type</label>
@@ -107,14 +133,10 @@ const CrimeReport = () => {
             />
           </div>
 
-     
-
-     <button
+          <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-md font-semibold text-white shadow-md transition duration-300 ${
-              loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-            }`}
+            className={`w-full py-3 rounded-md font-semibold text-white shadow-md transition duration-300 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
           >
             {loading ? 'Submitting...' : 'Submit Crime Report'}
           </button>

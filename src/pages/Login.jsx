@@ -12,9 +12,16 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
       alert(response.data.message);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('role', response.data.role);
 
+      // Save the token, role, and username to localStorage
+      localStorage.setItem('token', response.data.token);  // Save the token
+      localStorage.setItem('role', response.data.role);    // Save the role
+      localStorage.setItem('full_name', response.data.user.full_name);  // Save the full name
+      localStorage.setItem('userId', response.data.user.user_id); // Save user_id (this is important)
+
+      console.log(localStorage.getItem('userId')); // Check if userId is correctly stored
+
+      // Redirect based on the role
       if (response.data.role === 'citizen') {
         navigate('/citizen-dashboard');
       } else if (response.data.role === 'law_enforcement') {

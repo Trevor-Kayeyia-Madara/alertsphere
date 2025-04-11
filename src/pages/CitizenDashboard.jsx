@@ -1,14 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBullhorn, FaUserAlt, FaSearch } from 'react-icons/fa';
 
 const CitizenDashboard = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the token is stored in localStorage
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    if (!token || role !== 'citizen') {
+      // Redirect to login if no token or if the role isn't citizen
+      navigate('/');
+    } else {
+      // Retrieve user data from localStorage
+      const fullName = localStorage.getItem('full_name');
+      setUser({ fullName });
+    }
+  }, [navigate]);
+
   return (
     <div className="flex flex-col min-h-screen bg-blue-50">
-      {/* Main content section */}
       <div className="flex-grow px-4 py-8">
-        <h2 className="text-3xl font-bold text-blue-700 mb-4">Citizen Dashboard</h2>
-        <p className="text-lg text-gray-600 mb-8">Welcome, valued citizen! Here you can report crimes, track missing persons, and manage your profile.</p>
+        <h2 className="text-3xl font-bold text-blue-700 mb-4">Welcome, {user?.fullName}!</h2>
+        <p className="text-lg text-gray-600 mb-8">Here you can report crimes, track missing persons, and manage your profile.</p>
 
         {/* Add widgets or more content here */}
       </div>
