@@ -1,33 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaBullhorn, FaUserAlt, FaSearch } from 'react-icons/fa';
+import { FaBullhorn, FaUserAlt, FaSearch, FaBell } from 'react-icons/fa';
+import axios from 'axios';
 
 const CitizenDashboard = () => {
   const [user, setUser] = useState(null);
+  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the token is stored in localStorage
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
 
     if (!token || role !== 'citizen') {
-      // Redirect to login if no token or if the role isn't citizen
       navigate('/');
     } else {
-      // Retrieve user data from localStorage
       const fullName = localStorage.getItem('full_name');
-      setUser({ fullName });
+      const userId = localStorage.getItem('userId');
+      setUser({ fullName, userId });
     }
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!user?.userId) return;
+      try {
+        const response = await axios.get(`http://localhost:5000/api/notifications/${user.userId}`);
+        const data = response.data.notifications || [];
+        setNotifications(data.slice(0, 3)); // Show only latest 3
+      } catch (error) {
+        console.error('Error fetching notifications:', error);
+      }
+    };
+
+    fetchNotifications();
+  }, [user?.userId]);
 
   return (
     <div className="flex flex-col min-h-screen bg-blue-50">
       <div className="flex-grow px-4 py-8">
-        <h2 className="text-3xl font-bold text-blue-700 mb-4">Welcome, {user?.fullName}!</h2>
-        <p className="text-lg text-gray-600 mb-8">Here you can report crimes, track missing persons, and manage your profile.</p>
+        <h2 className="text-3xl font-bold text-blue-700 mb-4">
+          Welcome, {user?.fullName}!
+        </h2>
+        <p className="text-lg text-gray-600 mb-6">
+          Here you can report crimes, track missing persons, and manage your profile.
+        </p>
 
-        {/* Add widgets or more content here */}
+        {/* Notifications Preview */}
+        <div className="bg-white shadow-md rounded-lg p-4 mb-6">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xl font-semibold text-blue-600 flex items-center gap-2">
+              <FaBell /> Recent Notifications
+            </h3>
+            <Link to="/notifications" className="text-sm text-blue-500 hover:underline">
+              View all
+            </Link>
+          </div>
+          {notifications.length > 0 ? (
+            <ul className="space-y-2">
+              {notifications.map((notif) => (
+                <li key={notif.id} className="text-sm text-gray-800 border-b pb-2">
+                  {notif.message}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-gray-500">No recent notifications.</p>
+          )}
+        </div>
       </div>
 
       {/* Bottom Navigation */}

@@ -7,6 +7,7 @@ import './App.css';
 import CrimeReport from './pages/CrimeReport';
 import MissingPersonReport from './pages/MissingPersonReport';
 import Profile from './pages/Profile';
+import Notifications from './pages/Notifications';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path='/report-crime' element={<CrimeReport />} />
       <Route path='/missing-persons' element={<MissingPersonReport />} />
       <Route path='/profile' element={<Profile />} />
+      <Route path='/notifications' element={<Notifications />} />
     </Routes>
   );
 }
