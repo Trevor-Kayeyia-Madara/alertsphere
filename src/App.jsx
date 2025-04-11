@@ -6,6 +6,7 @@ import OfficerDashboard from './pages/OfficerDashboard';
 import './App.css';
 import CrimeReport from './pages/CrimeReport';
 import MissingPersonReport from './pages/MissingPersonReport';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/officer-dashboard" element={<OfficerDashboard />} />
       <Route path='/report-crime' element={<CrimeReport />} />
       <Route path='/missing-persons' element={<MissingPersonReport />} />
+      <Route path='/profile' element={<Profile />} />
     </Routes>
   );
 }
