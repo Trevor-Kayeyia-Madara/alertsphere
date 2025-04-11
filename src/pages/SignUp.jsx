@@ -39,7 +39,7 @@ const SignUp = () => {
               placeholder="Enter your full name"
               onChange={handleChange}
               required
-              className="w-full bg-gray-50 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md"
+              className="w-full bg-gray-200 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md text-gray-800"
             />
           </div>
           <div>
@@ -51,7 +51,7 @@ const SignUp = () => {
               placeholder="Enter your email"
               onChange={handleChange}
               required
-              className="w-full bg-gray-50 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md"
+              className="w-full bg-gray-200 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md text-gray-800"
             />
           </div>
           <div>
@@ -63,7 +63,7 @@ const SignUp = () => {
               placeholder="Enter your phone number"
               onChange={handleChange}
               required
-              className="w-full bg-gray-50 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md"
+              className="w-full bg-gray-200 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md text-gray-800"
             />
           </div>
           <div>
@@ -75,7 +75,7 @@ const SignUp = () => {
               placeholder="Enter your password"
               onChange={handleChange}
               required
-              className="w-full bg-gray-50 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md"
+              className="w-full bg-gray-200 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md text-gray-800"
             />
           </div>
           <div>
@@ -84,7 +84,7 @@ const SignUp = () => {
               id="role"
               name="role"
               onChange={handleChange}
-              className="w-full bg-gray-50 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md"
+              className="w-full bg-gray-200 border-2 border-indigo-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-lg px-4 py-3 rounded-md text-gray-800"
             >
               <option value="citizen">Citizen</option>
               <option value="law_enforcement">Law Enforcement</option>
