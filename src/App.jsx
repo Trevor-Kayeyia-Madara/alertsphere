@@ -8,6 +8,7 @@ import CrimeReport from './pages/CrimeReport';
 import MissingPersonReport from './pages/MissingPersonReport';
 import Profile from './pages/Profile';
 import Notifications from './pages/Notifications';
+import CommunityForum from './pages/CommunityForum';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path='/missing-persons' element={<MissingPersonReport />} />
       <Route path='/profile' element={<Profile />} />
       <Route path='/notifications' element={<Notifications />} />
+      <Route path='/citizen-dashboard/community-forum' element={<CommunityForum />} />
     </Routes>
   );
 }
