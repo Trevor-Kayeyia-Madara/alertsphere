@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,8 @@ const SignUp = () => {
     role: 'citizen',
   });
 
+  const navigate = useNavigate(); // Initialize the navigate function
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -19,7 +21,8 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/auth/register', formData);
-      alert(response.data.message);
+      alert(response.data.message); // Show success message
+      navigate('/'); // Navigate to the home page after successful registration
     } catch (error) {
       alert(error.response?.data?.error || 'Registration failed');
     }

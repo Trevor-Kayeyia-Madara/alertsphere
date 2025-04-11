@@ -9,6 +9,9 @@ import MissingPersonReport from './pages/MissingPersonReport';
 import Profile from './pages/Profile';
 import Notifications from './pages/Notifications';
 import CommunityForum from './pages/CommunityForum';
+import VerificationPage from './pages/VerificationPage';
+import AlertsPage from './pages/AlertsPage';
+import ReportsPage from './pages/ReportsPage';
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
       <Route path='/profile' element={<Profile />} />
       <Route path='/notifications' element={<Notifications />} />
       <Route path='/citizen-dashboard/community-forum' element={<CommunityForum />} />
+      <Route path='/officer-verification' element={<VerificationPage  />} />
+      <Route path='/alerts' element={<AlertsPage />} />
+      <Route path='/reports' element={<ReportsPage />} />
     </Routes>
   );
 }

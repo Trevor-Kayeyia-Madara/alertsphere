@@ -17,7 +17,7 @@ const Login = () => {
       localStorage.setItem('token', response.data.token);  // Save the token
       localStorage.setItem('role', response.data.role);    // Save the role
       localStorage.setItem('full_name', response.data.user.full_name);  // Save the full name
-      localStorage.setItem('userId', response.data.user.user_id); // Save user_id (this is important)
+      localStorage.setItem('userId', response.data.user.user_id); // Save user_id
 
       console.log(localStorage.getItem('userId')); // Check if userId is correctly stored
 
@@ -25,6 +25,7 @@ const Login = () => {
       if (response.data.role === 'citizen') {
         navigate('/citizen-dashboard');
       } else if (response.data.role === 'law_enforcement') {
+        // Redirect to verification page for law enforcement
         navigate('/officer-dashboard');
       }
     } catch (error) {
