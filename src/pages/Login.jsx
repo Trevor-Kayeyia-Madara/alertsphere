@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('https://alertsphere-data.onrender.com/api/auth/login', { email, password });
-      alert(response.data.message);
+      toast.success(response.data.message); // Show success toast
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.role);
@@ -26,7 +28,7 @@ const Login = () => {
         navigate('/officer-dashboard');
       }
     } catch (error) {
-      alert(error.response?.data?.error || 'Login failed');
+      toast.error(error.response?.data?.error || 'Login failed'); // Show error toast
     }
   };
 
@@ -74,6 +76,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
+      <ToastContainer /> {/* Add ToastContainer here */}
     </div>
   );
 };
