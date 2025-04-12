@@ -22,7 +22,7 @@ const OfficerDashboard = () => {
     // Fetch missing person analytics data
     const fetchMissingPersonAnalytics = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/analytics/missing');
+        const response = await fetch('https://alertsphere-data.onrender.com/api/analytics/missing');
         const data = await response.json();
         if (data.missingPersonAnalytics) {
           setMissingPersonAnalytics(data.missingPersonAnalytics);
