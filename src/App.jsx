@@ -11,6 +11,7 @@ import Notifications from './pages/Notifications';
 import CommunityForum from './pages/CommunityForum';
 import VerificationPage from './pages/VerificationPage';
 import AlertsPage from './pages/AlertsPage';
+import './App.css';
 import ReportsPage from './pages/ReportsPage';
 
 function App() {
