@@ -9,7 +9,7 @@ const ReportsPage = () => {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/reports'); // adjust to your API base
+        const res = await axios.get('https://alertsphere-data.onrender.com/api/reports'); // adjust to your API base
         setReports(res.data.reports);
       } catch (err) {
         console.error('Error fetching reports:', err.message);

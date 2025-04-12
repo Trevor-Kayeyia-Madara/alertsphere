@@ -27,7 +27,7 @@ const MissingPersonReport = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/missing/report', payload);
+      const response = await axios.post('https://alertsphere-data.onrender.com/api/missing/report', payload);
       setSuccessMessage(response.data.message);
       setErrorMessage('');
 

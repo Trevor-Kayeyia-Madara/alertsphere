@@ -21,7 +21,7 @@ const Notifications = () => {
 
   const fetchNotifications = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/notifications/${userId}`);
+      const response = await axios.get(`https://alertsphere-data.onrender.com/api/notifications/${userId}`);
       const data = response.data.notifications || [];
       setNotifications(data);
     } catch (error) {

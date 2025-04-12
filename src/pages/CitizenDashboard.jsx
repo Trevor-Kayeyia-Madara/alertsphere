@@ -27,7 +27,7 @@ const CitizenDashboard = () => {
 
   const fetchNotifications = async (citizenId) => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/notifications/${citizenId}`);
+      const res = await axios.get(`https://alertsphere-data.onrender.com/api/notifications/${citizenId}`);
       setNotifications(res.data.notifications || []);
     } catch (err) {
       console.error('Error fetching notifications:', err);

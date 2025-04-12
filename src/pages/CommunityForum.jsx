@@ -22,7 +22,7 @@ const CommunityForum = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/community');
+      const response = await axios.get('https://alertsphere-data.onrender.com/api/community');
       setPosts(response.data.posts || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -40,7 +40,7 @@ const CommunityForum = () => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/community/create', payload);
+      await axios.post('https://alertsphere-data.onrender.com/api/community/create', payload);
       setNewPost({ title: '', content: '', anonymous: false });
       fetchPosts();
     } catch (err) {

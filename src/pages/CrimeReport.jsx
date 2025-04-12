@@ -41,7 +41,7 @@ const CrimeReport = () => {
 
     try {
       // Sending the POST request with the crime report data
-      const response = await axios.post('http://localhost:5000/api/crime/report', reportData, {
+      const response = await axios.post('https://alertsphere-data.onrender.com/api/crime/report', reportData, {
         headers: { 'Content-Type': 'application/json' },
       });
 
