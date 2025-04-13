@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const OfficerDashboard = () => {
   const [crimeAnalytics, setCrimeAnalytics] = useState({});
   const [missingPersonAnalytics, setMissingPersonAnalytics] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch crime analytics data
@@ -32,9 +33,57 @@ const OfficerDashboard = () => {
       }
     };
 
+    // Fetch analytics data
     fetchCrimeAnalytics();
     fetchMissingPersonAnalytics();
+
+    // Stop loading after fetching data
+    setLoading(false);
   }, []);
+
+  // Function to handle crime status update
+  const updateCrimeStatus = async (crimeId, newStatus) => {
+    try {
+      const response = await fetch(`https://alertsphere-data.onrender.com/api/crime/${crimeId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await response.json();
+      if (data.message) {
+        // Reload analytics or handle UI change based on the status
+        alert(data.message);
+      } else {
+        alert('Error updating crime status');
+      }
+    } catch (error) {
+      console.error('Error updating crime status:', error);
+    }
+  };
+
+  // Function to handle missing person status update
+  const updateMissingPersonStatus = async (personId, newStatus) => {
+    try {
+      const response = await fetch(`https://alertsphere-data.onrender.com/api/missing/${personId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await response.json();
+      if (data.message) {
+        // Reload analytics or handle UI change based on the status
+        alert(data.message);
+      } else {
+        alert('Error updating missing person status');
+      }
+    } catch (error) {
+      console.error('Error updating missing person status:', error);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-blue-50">
@@ -43,25 +92,50 @@ const OfficerDashboard = () => {
         <h2 className="text-2xl font-bold text-blue-700 mb-2">Law Enforcement Dashboard</h2>
         <p className="text-gray-700 text-lg">Welcome, Officer.</p>
 
-        {/* Crime Analytics */}
-        <div className="mt-6">
-          <h3 className="text-xl font-semibold text-blue-700">Crime Analytics</h3>
-          <ul className="list-disc ml-6">
-            {Object.entries(crimeAnalytics).map(([crimeType, count]) => (
-              <li key={crimeType} className="text-gray-700">{crimeType}: {count}</li>
-            ))}
-          </ul>
-        </div>
+        {/* Loading State */}
+        {loading ? (
+          <p>Loading analytics...</p>
+        ) : (
+          <>
+            {/* Crime Analytics */}
+            <div className="mt-6">
+              <h3 className="text-xl font-semibold text-blue-700">Crime Analytics</h3>
+              <ul className="list-disc ml-6">
+                {Object.entries(crimeAnalytics).map(([crimeType, count]) => (
+                  <li key={crimeType} className="text-gray-700">
+                    {crimeType}: {count}
+                    {/* Update crime status button */}
+                    <button
+                      onClick={() => updateCrimeStatus(crimeType, 'Resolved')}
+                      className="ml-4 text-blue-600 hover:text-blue-800"
+                    >
+                      Mark as Resolved
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        {/* Missing Person Analytics */}
-        <div className="mt-6">
-          <h3 className="text-xl font-semibold text-blue-700">Missing Person Analytics</h3>
-          <ul className="list-disc ml-6">
-            {Object.entries(missingPersonAnalytics).map(([status, count]) => (
-              <li key={status} className="text-gray-700">{status}: {count}</li>
-            ))}
-          </ul>
-        </div>
+            {/* Missing Person Analytics */}
+            <div className="mt-6">
+              <h3 className="text-xl font-semibold text-blue-700">Missing Person Analytics</h3>
+              <ul className="list-disc ml-6">
+                {Object.entries(missingPersonAnalytics).map(([status, count]) => (
+                  <li key={status} className="text-gray-700">
+                    {status}: {count}
+                    {/* Update missing person status button */}
+                    <button
+                      onClick={() => updateMissingPersonStatus(status, 'Found')}
+                      className="ml-4 text-blue-600 hover:text-blue-800"
+                    >
+                      Mark as Found
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Bottom Navigation */}
