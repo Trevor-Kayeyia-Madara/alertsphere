@@ -41,50 +41,6 @@ const OfficerDashboard = () => {
     setLoading(false);
   }, []);
 
-  // Function to handle crime status update
-  const updateCrimeStatus = async (crimeId, newStatus) => {
-    try {
-      const response = await fetch(`https://alertsphere-data.onrender.com/api/crime/${crimeId}/status`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      const data = await response.json();
-      if (data.message) {
-        // Reload analytics or handle UI change based on the status
-        alert(data.message);
-      } else {
-        alert('Error updating crime status');
-      }
-    } catch (error) {
-      console.error('Error updating crime status:', error);
-    }
-  };
-
-  // Function to handle missing person status update
-  const updateMissingPersonStatus = async (personId, newStatus) => {
-    try {
-      const response = await fetch(`https://alertsphere-data.onrender.com/api/missing/${personId}/status`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      const data = await response.json();
-      if (data.message) {
-        // Reload analytics or handle UI change based on the status
-        alert(data.message);
-      } else {
-        alert('Error updating missing person status');
-      }
-    } catch (error) {
-      console.error('Error updating missing person status:', error);
-    }
-  };
-
   return (
     <div className="flex flex-col min-h-screen bg-blue-50">
       {/* Header */}
@@ -104,13 +60,6 @@ const OfficerDashboard = () => {
                 {Object.entries(crimeAnalytics).map(([crimeType, count]) => (
                   <li key={crimeType} className="text-gray-700">
                     {crimeType}: {count}
-                    {/* Update crime status button */}
-                    <button
-                      onClick={() => updateCrimeStatus(crimeType, 'Resolved')}
-                      className="ml-4 text-blue-600 hover:text-blue-800"
-                    >
-                      Mark as Resolved
-                    </button>
                   </li>
                 ))}
               </ul>
@@ -123,13 +72,6 @@ const OfficerDashboard = () => {
                 {Object.entries(missingPersonAnalytics).map(([status, count]) => (
                   <li key={status} className="text-gray-700">
                     {status}: {count}
-                    {/* Update missing person status button */}
-                    <button
-                      onClick={() => updateMissingPersonStatus(status, 'Found')}
-                      className="ml-4 text-blue-600 hover:text-blue-800"
-                    >
-                      Mark as Found
-                    </button>
                   </li>
                 ))}
               </ul>
@@ -160,6 +102,13 @@ const OfficerDashboard = () => {
         >
           <span className="text-xl mb-1">👮‍♂️</span>
           <span>Profile</span>
+        </Link>
+        <Link
+          to="/update-status"
+          className="flex flex-col items-center text-blue-600 text-sm hover:text-blue-800"
+        >
+          <span className="text-xl mb-1">🛠️</span>
+          <span>Update Status</span>
         </Link>
       </nav>
     </div>

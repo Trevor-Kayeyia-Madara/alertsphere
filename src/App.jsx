@@ -13,6 +13,7 @@ import VerificationPage from './pages/VerificationPage';
 import AlertsPage from './pages/AlertsPage';
 import './App.css';
 import ReportsPage from './pages/ReportsPage';
+import CrimeAndMissingUpdate from './pages/CrimeAndMissingUpdate';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path='/officer-verification' element={<VerificationPage  />} />
       <Route path='/alerts' element={<AlertsPage />} />
       <Route path='/reports' element={<ReportsPage />} />
+      <Route path='/update-status' element={<CrimeAndMissingUpdate />} />
     </Routes>
   );
 }
