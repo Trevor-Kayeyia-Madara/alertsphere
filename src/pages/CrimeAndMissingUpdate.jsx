@@ -9,7 +9,7 @@ const CrimeAndMissingUpdate = () => {
     // Fetching crime reports
     const fetchCrimes = async () => {
       try {
-        const response = await fetch('https://alertsphere-data.onrender.com/api/crime');
+        const response = await fetch('https://alertsphere-data.onrender.com/api/crime/');
         const data = await response.json();
         if (data.crimes) {
           setCrimes(data.crimes);
@@ -22,7 +22,7 @@ const CrimeAndMissingUpdate = () => {
     // Fetching missing persons
     const fetchMissingPersons = async () => {
       try {
-        const response = await fetch('https://alertsphere-data.onrender.com/api/missing');
+        const response = await fetch('https://alertsphere-data.onrender.com/api/missing/missing');
         const data = await response.json();
         if (data.missingPersons) {
           setMissingPersons(data.missingPersons);
