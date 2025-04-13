@@ -9,7 +9,7 @@ const AlertsPage = () => {
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const res = await axios.get('https://alertsphere-data.onrender.com/api/alerts'); // adjust if different URL
+        const res = await axios.get('https://alertsphere-data.onrender.com/api/alerts/'); // adjust if different URL
         setAlerts(res.data.alerts);
       } catch (error) {
         console.error('Error fetching alerts:', error.message);

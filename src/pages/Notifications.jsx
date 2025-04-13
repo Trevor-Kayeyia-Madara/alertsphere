@@ -19,9 +19,9 @@ const Notifications = () => {
     }
   }, [navigate]);
 
-  const fetchNotifications = async (userId) => {
+  const fetchNotifications = async () => {
     try {
-      const response = await axios.get(`https://alertsphere-data.onrender.com/api/notifications/${userId}`);
+      const response = await axios.get(`https://alertsphere-data.onrender.com/api/notifications/`);
       const data = response.data.notifications || [];
       setNotifications(data);
     } catch (error) {
