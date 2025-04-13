@@ -25,9 +25,9 @@ const CitizenDashboard = () => {
     }
   }, [navigate]);
 
-  const fetchNotifications = async (citizenId) => {
+  const fetchNotifications = async () => {
     try {
-      const res = await axios.get(`https://alertsphere-data.onrender.com/api/notifications/${citizenId}`);
+      const res = await axios.get(`https://alertsphere-data.onrender.com/api/notifications/`);
       setNotifications(res.data.notifications || []);
     } catch (err) {
       console.error('Error fetching notifications:', err);
@@ -36,7 +36,7 @@ const CitizenDashboard = () => {
 
   const fetchAlerts = async () => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/alerts/`);
+      const res = await axios.get(`https://alertsphere-data.onrender.com/api/alerts/`);
       setAlerts(res.data.alerts || []);
     } catch (err) {
       console.error('Error fetching alerts:', err);
