@@ -40,9 +40,9 @@ const CrimeAndMissingUpdate = () => {
   }, []);
 
   // Function to handle crime status update
-  const updateCrimeStatus = async (crimeId, newStatus) => {
+  const updateCrimeStatus = async (reportId, newStatus) => {
     try {
-      const response = await fetch(`https://alertsphere-data.onrender.com/api/crime/${crimeId}/status`, {
+      const response = await fetch(`https://alertsphere-data.onrender.com/api/crime/${reportId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -61,9 +61,9 @@ const CrimeAndMissingUpdate = () => {
   };
 
   // Function to handle missing person status update
-  const updateMissingPersonStatus = async (personId, newStatus) => {
+  const updateMissingPersonStatus = async (reportId, newStatus) => {
     try {
-      const response = await fetch(`https://alertsphere-data.onrender.com/api/missing/${personId}/status`, {
+      const response = await fetch(`https://alertsphere-data.onrender.com/api/missing/${reportId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
